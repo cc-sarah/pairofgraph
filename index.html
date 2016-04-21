@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>OOP</title>
+</head>
+<body>
+
+     <h1>Introduction to Object Oriented Programming!</h1>
+     <small>Instructions are  in the code! How exciting!</small>
+    <div id="paragraphs"></div>
+
+
+
+
+
+	<script>
+
+            // Finish the Following constructor
+
+		function Sentence(wordsArray) {
+			this.wordsArray = wordsArray;
+			
+			this.getWordCount = function() {
+                return this.wordsArray.length;
+			}
+			
+			this.getLetterCount = function() {
+                var acc = 0;
+                for(var i = 0; i<this.wordsArray.length;i++){
+                    acc+=this.wordsArray[i].length;
+                }
+                return acc + this.wordsArray.length - 1;
+			}
+			
+			this.reverse = function() {
+                var len = this.wordsArray.length;
+				for(var i = 0; i<math.floor(len/2); i++){
+                    var tmp;
+                    tmp = this.wordsArray[i];
+                    this.wordsArray[i] = this.wordsArray[len-i];
+                    this.wordsArray[len-i] = tmp;
+                }
+			}
+			
+			this.getWordAt = function(i) {
+				return wordsArray[i];
+			}
+		}
+		
+		/* Some Tests. Make them all pass! */
+		
+		var s = new Sentence(["Hello", "I", "Am", "Computer"]);
+		console.log(s.getWordCount() == 4);
+		console.log(s.getLetterCount() == 19); //remember spaces!
+		console.log(s.getWordAt(0) == "Hello");
+		s.reverse()
+		console.log(s.getWordAt(0) == "Computer");
+
+		 /*
+		 
+		 Create a new constructor function for a Paragraph
+		 
+		 You should be able to
+		 	var s2 = new Sentence ("I", "am", "not", "human");
+		 	p = new Paragraph([s, s2]);
+		 
+		 Implement the following:
+			p.getWordCount()
+			p.getLetterCount()
+			p.getWordAt(10)
+			p.getSentenceCount()
+			p.addToHTML("paragraphs")
+        */
+        
+        function Paragraph(sentenceArray){
+            this.sentenceArray = sentenceArray;
+            
+            this.getWordCount = function(){
+                var acc = 0;
+                for(var i = 0; i<this.sentenceArray.length; i++){
+                    acc += this.sentenceArray[i].getWordCount();
+                }
+                return acc;
+            };
+                    
+			this.getLetterCount = function(){
+                var acc = 0;
+                for(var i = 0; i<this.sentenceArray.length; i++){
+                    acc += this.sentenceArray[i].getLetterCount() + 2 * this.sentenceArray.length;
+                }
+                return acc;
+            };
+                
+			this.getWordAt = function(wordI){
+                if(wordI >= this.getWordCount){
+                    return undefined;
+                }
+                var curI = 0;
+                var wordCountBeforeI = 0;
+                var wordCountUpToCurI = this.sentenceArray[0].getWordCount();
+                while(wordCountUpToCurI<wordI){
+                    curI += 1;
+                    wordCountBeforeI = wordCountUpToCurI;
+                    wordCountUpToCurI += this.sentenceArray[i].getWordCount();
+                }
+                var iInSentence = wordI - wordCountBeforeI;
+                return this.sentenceArray[curI][iInSentence];
+            };
+                
+			this.getSentenceCount = function(){
+                return this.sentenceArray.length;
+            };
+                
+			this.addToHTML = function(id){
+                document.getElementById(id).innerHTML += this._printHTML();
+            };
+                
+            this._printHTML = function(){
+                ret = "<p>";
+                for(var i = 0; i<this.sentenceArray.length; i++){
+                    ret += this.sentenceArray.wordsArray.join(" ") + ". ";
+                }
+                return ret + "</p>";
+            };
+        }
+		
+		
+	</script>
+</body>
+</html>
+
+
+
+
+
+
+
